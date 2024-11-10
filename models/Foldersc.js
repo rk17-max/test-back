@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 
 const folderSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Reference to User model
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Reference to the user who owns the folder
+    files: [{ type: mongoose.Schema.Types.ObjectId, ref: 'File' }] // Array of references to files within the folder
 }, {
-    timestamps: true // Automatically manage createdAt and updatedAt fields
+    timestamps: true // Automatically manage createdAt and updatedAt timestamps
 });
 
-const Folder = mongoose.model('Folder', folderSchema); // Ensure this is correct
-
-module.exports = Folder; // Export the model
+const Folder = mongoose.model('Folder', folderSchema);
+module.exports = Folder;

@@ -1,32 +1,23 @@
 const mongoose = require('mongoose');
-
-
-
-
-const ratingSchema = new mongoose.Schema({
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'User'
-    },
-    rating: {
-        type: Number,
-        required: true,
-    },
-    comment: {
-        type: String,
-        required: true,
-    }
-});
-
 const fileSchema = new mongoose.Schema({
     originalName: { 
+        type: String, 
+        required: true 
+    },
+    name: { 
         type: String, 
         required: true 
     },
     url: { 
         type: String, 
         required: true 
+    },
+    thumbnailUrl: { 
+        type: String, 
+        required: true 
+    },
+    cloudinaryId:{
+        type:String
     },
     createdAt: { 
         type: Date, 
@@ -36,12 +27,16 @@ const fileSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User', 
         required: true 
-    }, // Reference to User model
+    },
     category: { 
         type: String, 
         required: true 
-    }, // New category field
-    folder: { // New field for referencing the Folder
+    }, 
+    description: { 
+        type: String, 
+        required: true 
+    }, 
+    folder: { 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Folder' 
     },
@@ -53,12 +48,17 @@ const fileSchema = new mongoose.Schema({
             },
             rating: Number,
             comment: String,
+            username:String
         },
     ],
+    
+    averageRating: { // New field to store the average numeric rating
+        type: Number,
+        default: 0
+    }
 }, {
-    timestamps: true, // Automatically manage createdAt and updatedAt timestamps
+    timestamps: true // Automatically manage createdAt and updatedAt timestamps
 });
 const File = mongoose.model('File', fileSchema); // Ensure the model is correctly defined
 
-module.exports = File; // Export the model
-
+module.exports = File; // Export the model // 
